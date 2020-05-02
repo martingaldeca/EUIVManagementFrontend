@@ -10,30 +10,30 @@
             >
                 <v-expansion-panel
                         expand
-                        readonly
+                        v-if="(superUser === 'true' || superUser === true)"
                 >
-                    <v-expansion-panel-header disable-icon-rotate expand-icon="" color="primary"><h1 class="text-center">Platform Configuration</h1></v-expansion-panel-header>
+                    <v-expansion-panel-header color="primary"><h1 class="text-center">Platform Configuration</h1></v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <PlatformConfiguration/>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
                 <v-expansion-panel
                         expand
-                        readonly
+                        v-if="(superUser === 'true' || superUser === true)"
                 >
-                    <v-expansion-panel-header disable-icon-rotate expand-icon="" color="primary"><h1 class="text-center">Platform Stats</h1></v-expansion-panel-header>
+                    <v-expansion-panel-header color="primary"><h1 class="text-center">Platform Stats</h1></v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <PlatformStats/>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
 
-                <v-expansion-panel style="margin-top: 20px">
+                <v-expansion-panel >
                     <v-expansion-panel-header color="primary"><h1 class="text-center">Save Games</h1></v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <SaveGames/>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
-                <v-expansion-panel style="margin-top: 20px">
+                <v-expansion-panel >
                     <v-expansion-panel-header color="primary"><h1 class="text-center">Users</h1></v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <PlatformUsers/>
@@ -60,9 +60,14 @@
         },
         data() {
             return {
-                panel: [0, 1],
+                panel: [0, 1, 2, 3],
             }
         },
+        computed: {
+            superUser() {
+                return this.$store.getters.superUser
+            }
+        }
     }
 </script>
 

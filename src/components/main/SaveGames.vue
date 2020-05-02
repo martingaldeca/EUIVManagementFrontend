@@ -11,7 +11,7 @@
     >
         <template v-slot:body="{ items }">
             <tr v-for="item in items" :key="item.savegame_name" style="text-align: left">
-                <td><a href="#" style="text-decoration: none">{{ item.savegame_name }}</a></td>
+                <td><a v-bind:href="'/savegame/' + item.savegame_name" style="text-decoration: none">{{ item.savegame_name }}</a></td>
                 <td>{{ item.savegame_date }}</td>
                 <v-chip :color="getColor(item.savegame_lines)" class="mt-2">{{ item.savegame_lines }}</v-chip>
 
@@ -40,28 +40,29 @@
                     {text: 'Lines', value: 'savegame_lines'},
                     {text: 'Multiplayer', value: 'savegame_is_multi_player'},
                     {text: 'Active', value: 'active'}
-                ]
+                ],
+                userId: this.$store.getters.userId
             }
         },
         mounted() {
-            this.getSimpleSaveGames()
+            this.getSimpleSaveGames(this.userId)
 
             // The call each N seconds
             setInterval(function () {
                 // Check the token, just in case we reload it
                 this.refreshToken()
-                this.getSimpleSaveGames()
+                this.getSimpleSaveGames(this.userId)
             }.bind(this), 15000)
         },
         methods: {
-            getSimpleSaveGames() {
-                this.$store.dispatch('getSimpleSaveGames')
+            getSimpleSaveGames(userId) {
+                this.$store.dispatch('getSimpleSaveGames', userId)
             },
             refreshToken() {
                 this.$store.dispatch('refreshToken')
             },
             getColor(lines) {
-                if (lines > 2000000) return 'red'
+                if (lines > 2400000) return 'red'
                 else if (lines > 1500000) return 'orange'
                 else return 'green'
             }

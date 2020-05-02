@@ -11,9 +11,17 @@
                 absolute
                 :right=true
                 :mini-variant="mini"
-                style="margin-top: 65px; height: 112px"
+                style="margin-top: 65px; height: 160px"
         >
             <v-list dense>
+                <v-list-item class="primary mt-n2">
+                    <v-list-item-action>
+                        <v-icon>fa-user</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title><strong>{{$store.getters.username}}</strong></v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item link v-on:click="logout">
                     <v-list-item-action>
                         <v-icon>fa-sign-out-alt</v-icon>
@@ -52,6 +60,7 @@
         methods: {
             logout() {
                 this.$store.dispatch('logout')
+                this.$router.push('/')
             }
         },
         computed: {

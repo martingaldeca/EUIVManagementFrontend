@@ -14,12 +14,12 @@
                     style="margin-top: 65px; height: 100vh"
             >
                 <v-list dense>
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/savegames/')">
                         <v-list-item-action>
                             <v-icon>fa-save</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>Save games</v-list-item-title>
+                            <v-list-item-title>Savegames</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                     <v-list-item link>
@@ -42,9 +42,9 @@
             </v-navigation-drawer>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
 
-            <v-toolbar-title>EU IV Management</v-toolbar-title>
+            <v-toolbar-title @click="$router.push('/')" style="cursor: pointer">EU IV Management</v-toolbar-title>
 
-            <img src="../../assets/euiv.png" width="50px" height="50px" style="margin-left: 15px" alt="Logo">
+            <img @click="$router.push('/')" src="../../assets/euiv.png" width="50px" height="50px" style="margin-left: 15px; cursor: pointer" alt="Logo">
             <v-spacer></v-spacer>
             <UserCircularNav/>
 
@@ -63,7 +63,8 @@
         }),
         components: {
             UserCircularNav
-        }
+        },
+
     }
 </script>
 

@@ -6,13 +6,33 @@ export const state = {
     invalidPassword: false,
     authenticated: window.localStorage.getItem('authenticated'),
     passwordsDoesNotMatch: false,
-    userAvatar: window.localStorage.getItem('userAvatar')
+    userAvatar: window.localStorage.getItem('userAvatar'),
+    userId: window.localStorage.getItem('userId'),
+    firstLogin: window.localStorage.getItem('firstLogin'),
+    username: window.localStorage.getItem('username'),
+    superUser: window.localStorage.getItem('superUser')
 }
 
 export const mutations = {
     setToken(state, token) {
         localStorage.setItem('token', token)
         state.token = token
+    },
+    setUserId(state, userId) {
+        localStorage.setItem('userId', userId)
+        state.userId = userId
+    },
+    setFirstLogin(state, firstLogin) {
+        localStorage.setItem('firstLogin', firstLogin)
+        state.firstLogin = firstLogin
+    },
+    setUsername(state, username) {
+        localStorage.setItem('username', username)
+        state.username = username
+    },
+    setSuperUser(state, superUser) {
+        localStorage.setItem('superUser', superUser)
+        state.superUser = superUser
     },
     setInvalidPassword(state, invalidPassword) {
         state.invalidPassword = invalidPassword
@@ -24,6 +44,7 @@ export const mutations = {
         state.passwordsDoesNotMatch = passwordsDoesNotMatch
     },
     setUserAvatar(state, userAvatar) {
+        localStorage.setItem('userAvatar', userAvatar)
         state.userAvatar = userAvatar
     }
 }
@@ -44,11 +65,11 @@ export const actions = {
                     axios.get('http://localhost:1444/api/users', {
                         headers: {Authorization: "JWT " + localStorage.getItem('token')}, params: {'user__username': userInfo.user}
                     }).then((userResponse) => {
-                            localStorage.setItem('userAvatar', userResponse.data.results[0].user_avatar)
+                            context.commit('setUserId', userResponse.data.results[0].user.id)
                             context.commit('setUserAvatar', userResponse.data.results[0].user_avatar)
-                            localStorage.setItem('firstLogin', userResponse.data.results[0].first_login)
-                            localStorage.setItem('username', userResponse.data.results[0].user.username)
-                            localStorage.setItem('userId', userResponse.data.results[0].user.id)
+                            context.commit('setFirstLogin', userResponse.data.results[0].first_login)
+                            context.commit('setUsername', userResponse.data.results[0].user.username)
+                            context.commit('setSuperUser', userResponse.data.results[0].user.is_superuser)
                             resolve(false)
                         }
                     )
@@ -121,5 +142,17 @@ export const getters = {
     },
     userAvatar(state) {
         return state.userAvatar
+    },
+    userId(state) {
+        return state.userId
+    },
+    firstLogin(state) {
+        return state.firstLogin
+    },
+    username(state) {
+        return state.username
+    },
+    superUser(state) {
+        return state.superUser
     }
 }

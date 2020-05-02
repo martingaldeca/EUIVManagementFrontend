@@ -11,8 +11,7 @@
     >
         <template v-slot:body="{ items }">
             <tr v-for="item in items" :key="item.user" style="text-align: left">
-                <td><a href="#" style="text-decoration: none">{{ item.user }}</a></td>
-                <td>{{ item.username }}</td>
+                <td><a href="#" style="text-decoration: none">{{ item.username }}</a></td>
                 <td v-if="item.email">{{ item.email }}</td>
                 <td v-else>-</td>
                 <td>{{ item.total_games }}</td>
@@ -29,7 +28,6 @@
             return {
                 selected: [],
                 headers: [
-                    {text: 'User Id', value: 'user'},
                     {text: 'Username', value: 'username'},
                     {text: 'Email', value: 'email'},
                     {text: 'Total games', value: 'total_games'},
